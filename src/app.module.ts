@@ -21,7 +21,7 @@ import { LanguageService } from './domain/services/language.service';
       port: Number(process.env.DB_PORT),
       database: process.env.DB_DATABASE,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-      migrations: [`${__dirname}infrastructure/migration/{.ts,*.js}`],
+      migrations: [`${__dirname}/infrastructure/migration/{.ts,*.js}`],
       migrationsRun: true,
     }),
     UserModule,
