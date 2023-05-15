@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { LanguageEntity } from "./language.entity";
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -63,9 +64,9 @@ export class UserEntity {
     @Column({ name: 'language_id', nullable: true })
     languageId: number;
 
-    // @ManyToOne( () => LanguageEntity, (language) => language.users )
-    // @JoinColumn({ name: 'language_id' })
-    // language: LanguageEntity;
+    @ManyToOne( () => LanguageEntity, (language) => language.users )
+    @JoinColumn({ name: 'language_id' })
+    language: LanguageEntity;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;

@@ -4,6 +4,9 @@ import { UserController } from './application/controllers/user.controller';
 import { UserService } from './domain/services/user.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LanguageModule } from './infrastructure/modules/language.module';
+import { LanguageController } from './application/controllers/language.controller';
+import { LanguageService } from './domain/services/language.service';
 
 @Module({
   imports: [
@@ -18,12 +21,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: Number(process.env.DB_PORT),
       database: process.env.DB_DATABASE,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-      migrations: [`${__dirname}/migration/{.ts,*.js}`],
+      migrations: [`${__dirname}infrastructure/migration/{.ts,*.js}`],
       migrationsRun: true,
     }),
-    UserModule
+    UserModule,
+    LanguageModule
   ],
-  controllers: [UserController],
-  providers: [UserService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

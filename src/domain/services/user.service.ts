@@ -25,6 +25,6 @@ export class UserService {
     }
 
     async listAll(): Promise<UserEntity[]> {
-        return await this.userRepository.find();
+        return await this.userRepository.find({ relations: { language: true }});
     }
 }
