@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LanguageModule } from './infrastructure/modules/language.module';
 import { LanguageController } from './application/controllers/language.controller';
 import { LanguageService } from './domain/services/language.service';
+import { CacheModule } from './cache/cache.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { LanguageService } from './domain/services/language.service';
       migrationsRun: true,
     }),
     UserModule,
-    LanguageModule
+    LanguageModule,
+    CacheModule
   ],
   controllers: [],
   providers: [],
