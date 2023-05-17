@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { LanguageEntity } from "./language.entity";
 
 @Entity({ name: 'users' })
+@Unique(['email'])
 export class UserEntity {
 
     @PrimaryGeneratedColumn()

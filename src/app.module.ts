@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UserModule } from './infrastructure/modules/user.module';
 import { UserController } from './application/controllers/user.controller';
 import { UserService } from './domain/services/user.service';
@@ -8,11 +8,39 @@ import { LanguageModule } from './infrastructure/modules/language.module';
 import { LanguageController } from './application/controllers/language.controller';
 import { LanguageService } from './domain/services/language.service';
 import { CacheModule } from './cache/cache.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './application/middlewares/correlation-id.middleware';
+import { Request } from 'express';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local', '.env.development'],
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: process.env.NODE_ENV === 'development' ? {
+          target: "pino-pretty",
+          options: {
+            messageKey: 'message'
+          },
+        } : undefined,
+        messageKey: 'message',
+        customProps: (req: Request) => {
+          return {
+            correlationId: req[CORRELATION_ID_HEADER],
+          };
+        },
+        autoLogging: false,
+        serializers: {
+          req: () => {
+            return undefined;
+          },
+          res: () => {
+            return undefined;
+          }
+        }
+      }
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -32,4 +60,8 @@ import { CacheModule } from './cache/cache.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CorrelationIdMiddleware).forRoutes("*");
+  }
+}

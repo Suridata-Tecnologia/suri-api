@@ -6,8 +6,8 @@ export class CreateTableLanguages1684112287697 implements MigrationInterface {
         await queryRunner.query(`
             CREATE TABLE languages (
                 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                name VARCHAR(255) NOT NULL,
-                abbreviation VARCHAR(255) NOT NULL,
+                name VARCHAR(255) NOT NULL UNIQUE,
+                abbreviation VARCHAR(255) NOT NULL UNIQUE,
                 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (id)
