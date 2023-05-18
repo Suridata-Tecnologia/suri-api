@@ -1,6 +1,7 @@
 import { UserEntity } from "src/domain/entities/user.entity";
+import { ReturnLanguageDto } from "../language/returnLanguage.dto";
 
-export class ReturnUserDto {
+export class ReturnUserRelationsDto {
 
     id: number;
     name: string;
@@ -23,6 +24,8 @@ export class ReturnUserDto {
     languageId: number;
     createdAt: Date;
     updatedAt: Date;
+    language: ReturnLanguageDto;
+    
 
     constructor(userEntity: UserEntity) {
         this.id = userEntity.id;
@@ -46,6 +49,7 @@ export class ReturnUserDto {
         this.languageId = userEntity.languageId;
         this.createdAt = userEntity.createdAt;
         this.updatedAt = userEntity.updatedAt;
+        this.language = userEntity.language;
     }
 
 }

@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { UserEntity } from "./user.entity";
+import { ReturnUserDto } from "src/application/dtos/user/returnUser.dto";
 
 @Entity({ name: 'languages' })
 @Unique(['name','abbreviation'])
