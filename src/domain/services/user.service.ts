@@ -53,6 +53,16 @@ export class UserService {
         return await this.userRepository.findOneOrFail({
             where: { languageId },
             relations: { language: true }
-        })
+        });
+    }
+
+
+    async findByEmail(email: string): Promise<UserEntity> {
+        this.logger.log("Starting findByEmail Method.");
+
+        return await this.userRepository.findOneOrFail({
+            where: { email },
+            relations: { language: true }
+        });
     }
 }
