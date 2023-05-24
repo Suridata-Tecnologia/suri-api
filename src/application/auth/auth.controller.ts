@@ -2,6 +2,7 @@ import { Body, Controller, Logger, NotFoundException, Post, UsePipes, Validation
 import { LoginDto } from './dto/login.dto';
 import { ReturnUserDto } from '../dtos/user/returnUser.dto';
 import { AuthService } from './auth.service';
+import { ReturnLoginDto } from './dto/returnLogin.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,8 +15,8 @@ export class AuthController {
 
     @UsePipes(ValidationPipe)
     @Post()
-    async login(@Body() loginDto: LoginDto): Promise<ReturnUserDto> {
+    async login(@Body() loginDto: LoginDto): Promise<ReturnLoginDto> {
         this.logger.log("Starting login Method.");
-        return new ReturnUserDto(await this.authService.login(loginDto));
+        return await this.authService.login(loginDto);
     } 
 }
