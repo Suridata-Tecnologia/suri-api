@@ -8,6 +8,9 @@ export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ name: 'user_type', nullable: false })
+    userType: number;
+
     @Column({ name: 'name', nullable: false })
     name: string;
 
