@@ -11,6 +11,7 @@ import { CacheModule } from './cache/cache.module';
 import { LoggerModule } from 'nestjs-pino';
 import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './application/middlewares/correlation-id.middleware';
 import { Request } from 'express';
+import { AuthModule } from './application/auth/auth.module';
 
 @Module({
   imports: [
@@ -55,7 +56,8 @@ import { Request } from 'express';
     }),
     UserModule,
     LanguageModule,
-    CacheModule
+    CacheModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
